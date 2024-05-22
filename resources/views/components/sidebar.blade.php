@@ -11,6 +11,10 @@
             <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
+            <li class="{{ $title == 'Laporan' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('laporan.index') }}"><i
+                        class="fas fa-calendar-check"></i><span>Laporan</span></a>
+            </li>
             <li class="{{ $title == 'Data Aset' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('asets.index') }}"><i class="fas fa-cubes"></i><span>Aset</span></a>
             </li>

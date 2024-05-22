@@ -33,7 +33,7 @@ class AsetController extends Controller
                 'nilai'         => 'required|integer|gte:0',
                 'lokasi'        => 'required|exists:locations,id',
                 'kondisi'       => 'required|in:baik,rusak',
-                'tgl_terima'    => 'required|date_format:Y-m-d',
+                'tgl_terima'    => 'required|date_format:Y-m-d|before_or_equal:today',
                 'batas'         => 'required|integer|gte:0',
                 'status'        => 'required|in:terpakai,tidak terpakai',
             ]
@@ -89,7 +89,7 @@ class AsetController extends Controller
                 'nilai'         => 'required|integer|gte:0',
                 'lokasi'        => 'required|exists:locations,id',
                 'kondisi'       => 'required|in:baik,rusak',
-                'tgl_terima'    => 'required|date_format:Y-m-d',
+                'tgl_terima'    => 'required|date_format:Y-m-d|before_or_equal:today',
                 'batas'         => 'required|integer|gte:0',
                 'status'        => 'required|in:terpakai,tidak terpakai',
             ]
