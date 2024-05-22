@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data Kategori'])
+@extends('layouts.template', ['title' => 'Data Jenis'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Kategori</h4>
+                    <h4>Data Jenis</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    @include('pages.category.modal')
+    @include('pages.jenis.modal')
 @endsection
 
 @push('js')
@@ -42,7 +42,7 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script>
-        var url_index = "{{ route('api.categories.index') }}"
+        var url_index = "{{ route('api.jenis.index') }}"
         var id = 0
 
         var table = $("#table").DataTable({
@@ -141,7 +141,6 @@
         })
 
         function modal_add() {
-            $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')

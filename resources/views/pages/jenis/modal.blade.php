@@ -17,27 +17,6 @@
                             <input type="text" name="name" class="form-control" id="name"
                                 placeholder="Please Enter Name" minlength="3" maxlength="25" required>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="email">Email :</label>
-                            <input type="email" name="email" class="form-control" id="email"
-                                placeholder="Please Enter Email" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="password">Password :</label>
-                            <input type="text" name="password" class="form-control" id="password"
-                                placeholder="Please Enter Password" minlength="5" required>
-                            <small id="modal_form_password_help" class="form-text text-muted" style="display: none">
-                                Kosongkan jika tidak ingin mengganti password.
-                            </small>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="role">Role :</label>
-                            <select name="role" id="role" class="form-control select2" style="width: 100%;"
-                                required>
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"
