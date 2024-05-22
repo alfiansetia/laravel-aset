@@ -10,11 +10,8 @@ class Usercontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax()) {
-            return response()->json(['data' => User::get(), 'message' => '']);
-        }
         return view('pages.user.index');
     }
 }

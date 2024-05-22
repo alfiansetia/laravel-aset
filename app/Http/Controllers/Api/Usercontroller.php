@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class Usercontroller extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class Usercontroller extends Controller
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
         ]);
-        return $this->response('Succes Insert Data!', $user, 200);
+        return $this->response('Sukses Tambah Data!', $user, 200);
     }
 
     /**
@@ -74,7 +74,7 @@ class Usercontroller extends Controller
             $param['password'] = Hash::make($request->password);
         }
         $user->update($param);
-        return $this->response('Succes Insert Data!', $user, 200);
+        return $this->response('Sukses Ubah Data!', $user, 200);
     }
 
     /**
@@ -83,6 +83,6 @@ class Usercontroller extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->response('Succes Delete Data!', $user, 200);
+        return $this->response('Sukses Hapus Data!', $user, 200);
     }
 }

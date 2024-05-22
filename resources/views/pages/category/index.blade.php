@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data User'])
+@extends('layouts.template', ['title' => 'Data Kategori'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data User</h4>
+                    <h4>Data Kategori</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
@@ -21,8 +21,6 @@
                             <tr>
                                 <th style="width: 30px;">#</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -33,7 +31,7 @@
             </div>
         </div>
     </div>
-    @include('pages.user.modal')
+    @include('pages.category.modal')
 @endsection
 
 @push('js')
@@ -44,7 +42,7 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script>
-        var url_index = "{{ route('api.users.index') }}"
+        var url_index = "{{ route('api.categories.index') }}"
         var id = 0
 
         var table = $("#table").DataTable({
@@ -77,10 +75,6 @@
                 }
             }, {
                 data: 'name',
-            }, {
-                data: 'email',
-            }, {
-                data: 'role',
             }, {
                 data: 'id',
                 render: function(data, type, row, meta) {
@@ -127,9 +121,6 @@
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
-                $('#email').val(result.data.email)
-                $('#password').val('')
-                $('#role').val(result.data.role).change()
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -157,9 +148,6 @@
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
-            $('#email').val('')
-            $('#password').val('')
-            $('#role').val('user').change()
         }
     </script>
 @endpush

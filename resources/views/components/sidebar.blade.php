@@ -17,6 +17,7 @@
                     <span>Master Data</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('users.index') }}">User</a></li>
+                    <li><a class="nav-link" href="{{ route('categories.index') }}">Kategori</a></li>
                     <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
                     <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
