@@ -74,6 +74,7 @@
                 data: 'role',
             }, {
                 data: 'id',
+                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button class="btn btn-danger btn-sm btn-delete">Delete</button>`;

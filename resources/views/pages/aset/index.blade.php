@@ -14,6 +14,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 30px;">#</th>
+                                <th>Image</th>
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Jenis</th>
@@ -81,6 +82,16 @@
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
+                data: 'image',
+                sortable: false,
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return `<img src="${data}" width="40" height="40">`
+                    } else {
+                        return data
+                    }
+                }
+            }, {
                 data: 'code',
             }, {
                 data: 'name',
@@ -145,6 +156,7 @@
                 data: 'status',
             }, {
                 data: 'id',
+                sortable: false,
                 render: function(data, type, row, meta) {
                     if (type == 'display') {
                         return `<button class="btn btn-danger btn-sm btn-delete">Delete</button>`;
@@ -206,7 +218,6 @@
                 $('#image_preview').show()
                 $('#image_preview').attr('src', result.data.image).width(200).height(200);
                 $('#modal_form').modal('show')
-                console.log($('#image').val());
             }).fail(function(xhr) {
                 show_toast('error', xhr.responseJSON.message || 'server Error!')
             })
