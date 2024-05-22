@@ -25,4 +25,13 @@ class Aset extends Model
     {
         return $this->belongsTo(Jenis::class);
     }
+
+    public function getImageAttribute($value)
+    {
+        if ($value && file_exists(public_path('assets/img/aset/' . $value))) {
+            return asset('assets/img/aset/' . $value);
+        } else {
+            return asset('assets/img/default.jpg');
+        }
+    }
 }

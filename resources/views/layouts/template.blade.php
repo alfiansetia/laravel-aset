@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title }} &mdash; Stisla</title>
+    <title>{{ $title }} &mdash; {{ env('APP_NAME') }}</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -90,7 +90,8 @@
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    // 'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
         }
@@ -123,12 +124,14 @@
 
         function send_ajax(formID, method) {
             ajax_setup()
+            let data = new FormData($('#' + formID)[0])
+            data.append('_method', method)
             $.ajax({
                 url: $('#' + formID).attr('action'),
-                type: method,
+                method: 'POST',
                 processData: false,
                 contentType: false,
-                data: new FormData($('#' + formID)[0]),
+                data: data,
                 // data: $('#' + formID).serialize(),
                 success: function(result) {
                     show_toast('success', result.message || 'Success!')

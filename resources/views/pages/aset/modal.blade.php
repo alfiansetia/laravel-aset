@@ -9,7 +9,7 @@
                         <span aria-hidden="true" data-toggle="tooltip" title="Close">&times;</span>
                     </button>
                 </div>
-                <form id="form" class="form-vertical" action="" method="POST">
+                <form id="form" class="form-vertical" action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -82,9 +82,13 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="image">Image :</label>
-                            <input type="file" name="image" class="form-control" id="image"
-                                onchange="readURL(this);" placeholder="Please Enter Image"
-                                accept="image/gif, image/jpeg, image/png, image/jpg">
+                            <div class="custom-file">
+                                <input type="file" name="image" class="custom-file-input" id="image"
+                                    onchange="readURL(this);" placeholder="Please Pick Image"
+                                    accept="image/jpeg, image/png, image/jpg">
+                                <label class="custom-file-label" for="image">Choose file</label>
+                            </div>
+                            <small class="form-text text-muted">Max Size 2MB</small>
                             <img id="image_preview" src="#" />
                         </div>
                     </div>

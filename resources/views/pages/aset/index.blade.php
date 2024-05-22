@@ -202,10 +202,11 @@
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
-                $('#image').val('')
+                $('#image').val('').change()
                 $('#image_preview').show()
                 $('#image_preview').attr('src', result.data.image).width(200).height(200);
                 $('#modal_form').modal('show')
+                console.log($('#image').val());
             }).fail(function(xhr) {
                 show_toast('error', xhr.responseJSON.message || 'server Error!')
             })

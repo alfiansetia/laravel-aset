@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Aset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AsetController extends Controller
 {
@@ -25,6 +26,7 @@ class AsetController extends Controller
         $this->validate(
             $request,
             [
+                'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
                 'name'          => 'required',
                 'jenis'         => 'required|exists:jenis,id',
                 'kategori'      => 'required|exists:categories,id',
@@ -38,7 +40,17 @@ class AsetController extends Controller
         );
         $count = Aset::latest('id')->first();
         $code = 'AST' . str_pad(($count->id ?? 0) + 1, 4, "0", STR_PAD_LEFT);
+        $img = null;
+        if ($files = $request->file('image')) {
+            $destinationPath = public_path('assets/img/aset/');
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 755, true);
+            }
+            $img = 'aset_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $img);
+        }
         $aset = Aset::create([
+            'image'         => $img,
             'code'          => $code,
             'name'          => $request->name,
             'jenis_id'      => $request->jenis,
@@ -70,6 +82,7 @@ class AsetController extends Controller
         $this->validate(
             $request,
             [
+                'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
                 'name'          => 'required',
                 'jenis'         => 'required|exists:jenis,id',
                 'kategori'      => 'required|exists:categories,id',
@@ -81,7 +94,20 @@ class AsetController extends Controller
                 'status'        => 'required|in:terpakai,tidak terpakai',
             ]
         );
+        $img = $aset->getRawOriginal('image');
+        if ($files = $request->file('image')) {
+            $destinationPath = public_path('assets/img/aset/');
+            if (!empty($img) && file_exists($destinationPath . $img)) {
+                File::delete($destinationPath . $img);
+            }
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 755, true);
+            }
+            $img = 'aset_' . date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $img);
+        }
         $aset->update([
+            'image'         => $img,
             'name'          => $request->name,
             'jenis_id'      => $request->jenis,
             'category_id'   => $request->kategori,
