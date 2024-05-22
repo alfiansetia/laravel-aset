@@ -78,6 +78,8 @@
     <script src="{{ asset('lib/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
 
     <script>
         function hrg(x) {
@@ -124,7 +126,10 @@
             $.ajax({
                 url: $('#' + formID).attr('action'),
                 type: method,
-                data: $('#' + formID).serialize(),
+                processData: false,
+                contentType: false,
+                data: new FormData($('#' + formID)[0]),
+                // data: $('#' + formID).serialize(),
                 success: function(result) {
                     show_toast('success', result.message || 'Success!')
                     table.ajax.reload()
@@ -157,6 +162,8 @@
                     message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...'
                 });
             }).ajaxStop($.unblockUI);
+
+            bsCustomFileInput.init()
 
         })
     </script>

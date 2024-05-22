@@ -80,6 +80,13 @@
                                 <option value="tidak terpakai">Tidak Terpakai</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label" for="image">Image :</label>
+                            <input type="file" name="image" class="form-control" id="image"
+                                onchange="readURL(this);" placeholder="Please Enter Image"
+                                accept="image/gif, image/jpeg, image/png, image/jpg">
+                            <img id="image_preview" src="#" />
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i

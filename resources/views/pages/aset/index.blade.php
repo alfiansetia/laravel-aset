@@ -202,6 +202,9 @@
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
+                $('#image').val('')
+                $('#image_preview').show()
+                $('#image_preview').attr('src', result.data.image).width(200).height(200);
                 $('#modal_form').modal('show')
             }).fail(function(xhr) {
                 show_toast('error', xhr.responseJSON.message || 'server Error!')
@@ -230,8 +233,21 @@
             $('#lokasi').val('').change()
             $('#kondisi').val('').change()
             $('#tgl_terima').val('')
+            $('#image').val('').change()
+            $('#image_preview').hide()
             $('#batas').val(0)
             $('#status').val('').change()
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#image_preview').show()
+                    $('#image_preview').attr('src', e.target.result).width(200).height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
     </script>
 @endpush
