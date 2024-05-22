@@ -20,34 +20,17 @@ class Usercontroller extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // $valid = Validator::make($request->all(), [
-        //     'name'      => 'required',
-        //     'email'     => 'required',
-        //     'role'      => 'required|in:user,admin',
-        //     'password'  => 'required'
-        // ]);
-        // if ($valid->fails()) {
-        //     return $this->response($valid->messages()[0], null, 422);
-        // }
         $this->validate(
             $request,
             [
                 'name'      => 'required',
-                'email'     => 'required',
+                'email'     => 'required|unique:users,email',
                 'role'      => 'required|in:user,admin',
-                'password'  => 'required'
+                'password'  => 'required|min:5'
             ]
         );
         $user = User::create([
@@ -67,27 +50,39 @@ class Usercontroller extends Controller
         return $this->response('', $user, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'name'      => 'required',
+                'email'     => 'required|unique:users,email,' . $user->id,
+                'role'      => 'required|in:user,admin',
+                'password'  => 'nullable|min:5'
+            ]
+        );
+        $param = [
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'role'      => $request->role,
+        ];
+        if ($request->filled('password')) {
+            $param['password'] = Hash::make($request->password);
+        }
+        $user->update($param);
+        return $this->response('Succes Insert Data!', $user, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return $this->response('Succes Delete Data!', $user, 200);
     }
 }

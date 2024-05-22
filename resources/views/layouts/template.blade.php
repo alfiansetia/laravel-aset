@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }} &mdash; Stisla</title>
 
     <!-- General CSS Files -->
@@ -75,7 +76,19 @@
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
     <script src="{{ asset('lib/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
+
     <script>
+        function ajax_setup() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                }
+            });
+        }
+
         function logout_() {
             $('#form_logout').submit();
         }
@@ -101,6 +114,47 @@
                 });
             }
         }
+
+        function send_ajax(formID, method) {
+            ajax_setup()
+            $.ajax({
+                url: $('#' + formID).attr('action'),
+                type: method,
+                data: $('#' + formID).serialize(),
+                success: function(result) {
+                    show_toast('success', result.message || 'Success!')
+                    table.ajax.reload()
+                    $('#modal_form').modal('hide')
+                },
+                error: function(xhr, status, error) {
+                    show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                }
+            })
+        }
+
+        function send_delete(url) {
+            ajax_setup()
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function(result) {
+                    show_toast('success', result.message || 'Success!')
+                    table.ajax.reload()
+                },
+                error: function(xhr, status, error) {
+                    show_toast('error', xhr.responseJSON.message || 'Server Error!')
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            $(document).ajaxStart(function() {
+                $.blockUI({
+                    message: '<img src="{{ asset('assets/img/loading.gif') }}" width="20px" height="20px" /> Just a moment...'
+                });
+            }).ajaxStop($.unblockUI);
+
+        })
     </script>
     <!-- JS Libraies -->
     @stack('js')
