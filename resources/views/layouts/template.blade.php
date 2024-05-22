@@ -81,7 +81,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script src="{{ asset('lib/moment/min/moment.min.js') }}"></script>
 
-
     <script>
         function hrg(x) {
             return parseInt(x).toLocaleString('id-ID')
@@ -178,6 +177,15 @@
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 
+    @if (session()->has('success'))
+        <script>
+            show_toast("success", "{{ session('success') }}");
+        </script>
+    @elseif(session()->has('error'))
+        <script>
+            show_toast("error", "{{ session('error') }}");
+        </script>
+    @endif
 </body>
 
 </html>

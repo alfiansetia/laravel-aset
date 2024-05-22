@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LocationController;
@@ -22,12 +23,14 @@ Auth::routes([
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-    Route::get('users', [Usercontroller::class, 'index'])->name('users.index');
-    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('jenis', [JenisController::class, 'index'])->name('jenis.index');
-    Route::get('locations', [LocationController::class, 'index'])->name('locations.index');
-    Route::get('asets', [AsetController::class, 'index'])->name('asets.index');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('users', [Usercontroller::class, 'index'])->name('users.index');
+        Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('jenis', [JenisController::class, 'index'])->name('jenis.index');
+        Route::get('locations', [LocationController::class, 'index'])->name('locations.index');
+        Route::get('asets', [AsetController::class, 'index'])->name('asets.index');
+    });
 });

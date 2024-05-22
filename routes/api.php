@@ -13,8 +13,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::apiResource('users', UserController::class)->names('api.users');
     Route::apiResource('categories', CategoryController::class)->names('api.categories');
     Route::apiResource('jenis', JenisController::class)->parameters(['jenis' => 'jenis'])->names('api.jenis');

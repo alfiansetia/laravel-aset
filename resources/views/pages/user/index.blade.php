@@ -1,6 +1,7 @@
 @extends('layouts.template', ['title' => 'Data User'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib//select2/dist/css/select2.min.css') }}">
 @endpush
 @section('content')
     <div class="row">
@@ -34,6 +35,8 @@
     <script src="{{ asset('lib/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
     <script>
         var url_index = "{{ route('api.users.index') }}"
         var id = 0
