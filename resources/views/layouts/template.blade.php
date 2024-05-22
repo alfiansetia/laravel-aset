@@ -80,6 +80,10 @@
     <script src="https://cdn.jsdelivr.net/npm/block-ui@2.70.1/jquery.blockUI.min.js"></script>
 
     <script>
+        function hrg(x) {
+            return parseInt(x).toLocaleString('id-ID')
+        }
+
         function ajax_setup() {
             $.ajaxSetup({
                 headers: {

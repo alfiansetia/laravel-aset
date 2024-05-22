@@ -3,18 +3,9 @@
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
 @section('content')
-    {{-- <h2 class="section-title">DataTables</h2>
-    <p class="section-lead">
-        We use 'DataTables' made by @SpryMedia. You can check the full documentation <a
-            href="https://datatables.net/">here</a>.
-    </p> --}}
-
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>Data Kategori</h4>
-                </div>
                 <div class="card-body">
                     <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
                         <thead>

@@ -1,6 +1,9 @@
-@extends('layouts.template', ['title' => 'Data Lokasi'])
+@extends('layouts.template', ['title' => 'Data Aset'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('lib//bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib//select2/dist/css/select2.min.css') }}">
 @endpush
 @section('content')
     <div class="row">
@@ -11,7 +14,16 @@
                         <thead>
                             <tr>
                                 <th style="width: 30px;">#</th>
-                                <th>Name</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Jenis</th>
+                                <th>Kategori</th>
+                                <th>Nilai</th>
+                                <th>Lokasi</th>
+                                <th>Kondisi</th>
+                                <th>Tgl Terima</th>
+                                <th>Batas Pemakaian</th>
+                                <th>Status</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -22,7 +34,7 @@
             </div>
         </div>
     </div>
-    @include('pages.location.modal')
+    @include('pages.aset.modal')
 @endsection
 
 @push('js')
@@ -32,8 +44,12 @@
     <script src="{{ asset('lib/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
+
     <script>
-        var url_index = "{{ route('api.locations.index') }}"
+        var url_index = "{{ route('api.asets.index') }}"
         var id = 0
 
         var table = $("#table").DataTable({
@@ -65,7 +81,68 @@
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
+                data: 'code',
+            }, {
                 data: 'name',
+            }, {
+                data: 'jenis_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.jenis.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'category_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.category.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'nilai',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return "Rp." + hrg(data)
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'location_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.location.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'kondisi',
+            }, {
+                data: 'tgl_terima',
+            }, {
+                data: 'batas',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        if (data < 1) {
+                            return ''
+                        }
+                        let initialDate = new Date(row.tgl_terima);
+                        let yearsToAdd = row.batas;
+                        let newDate = new Date(initialDate);
+                        newDate.setFullYear(newDate.getFullYear() + yearsToAdd);
+                        let formattedDate = newDate.toISOString().split('T')[0];
+                        return formattedDate
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'status',
             }, {
                 data: 'id',
                 render: function(data, type, row, meta) {
@@ -112,6 +189,16 @@
             id = table.row(row).data().id
             $.get(url_index + '/' + id).done(function(result) {
                 $('#name').val(result.data.name)
+                $('#jenis').val(result.data.jenis_id).change()
+                $('#nilai').val(result.data.nilai)
+                $('#kategori').val(result.data.category_id).change()
+                $('#lokasi').val(result.data.location_id).change()
+                $('#kondisi').val(result.data.kondisi).change()
+                $("#tgl_terima").data('daterangepicker').setStartDate(result.data.tgl_terima);
+                $("#tgl_terima").data('daterangepicker').setEndDate(result.data.tgl_terima);
+                $('#tgl_terima').val(result.data.tgl_terima).change()
+                $('#batas').val(result.data.batas)
+                $('#status').val(result.data.status).change()
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -132,12 +219,19 @@
         })
 
         function modal_add() {
-            $('#modal_form_password_help').hide()
             $('#form').attr('action', url_index)
             $('#modal_form_submit').val('POST')
             $('#modal_form_title').html('Tambah Data')
             $('#modal_form').modal('show')
             $('#name').val('')
+            $('#jenis').val('').change()
+            $('#nilai').val(0)
+            $('#kategori').val('').change()
+            $('#lokasi').val('').change()
+            $('#kondisi').val('').change()
+            $('#tgl_terima').val('')
+            $('#batas').val(0)
+            $('#status').val('').change()
         }
     </script>
 @endpush

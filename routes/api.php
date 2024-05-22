@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AsetController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\JenisController;
 use App\Http\Controllers\Api\LocationController;
@@ -18,4 +19,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('categories', CategoryController::class)->names('api.categories');
     Route::apiResource('jenis', JenisController::class)->parameters(['jenis' => 'jenis'])->names('api.jenis');
     Route::apiResource('locations', LocationController::class)->names('api.locations');
+    Route::apiResource('asets', AsetController::class)->names('api.asets');
 });
