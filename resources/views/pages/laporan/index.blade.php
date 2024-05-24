@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Data Aset'])
+@extends('layouts.template', ['title' => 'Laporan'])
 @push('css')
     <link rel="stylesheet" href="{{ asset('lib/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
@@ -36,7 +36,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->jenis->name ?? '' }}</td>
                                     <td>{{ $item->category->name ?? '' }}</td>
-                                    <td>Rp. {{ $item->nilai }}</td>
+                                    <td>Rp. {{ hrg($item->nilai) }}</td>
                                     <td>{{ $item->location->name }}</td>
                                     <td>{{ $item->kondisi }}</td>
                                     <td>{{ $item->tgl_terima }}</td>

@@ -52,7 +52,7 @@ class Aset extends Model
             return '';
         }
         $now = Carbon::now();
-        $awal = Carbon::parse($this->tgl_terima)->addDays();
+        $awal = Carbon::parse($this->tgl_terima);
         $hasil = $awal->diff($now);
         return $this->parse_hasil($hasil->format('%y'), $hasil->format('%m'), $hasil->format('%d'));
     }
