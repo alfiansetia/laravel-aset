@@ -7,7 +7,7 @@ use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\TrackingController;
-use App\Http\Controllers\Usercontroller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('tracking', [TrackingController::class, 'index'])->name('tracking.index');
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('users', [Usercontroller::class, 'index'])->name('users.index');
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::get('jenis', [JenisController::class, 'index'])->name('jenis.index');
         Route::get('locations', [LocationController::class, 'index'])->name('locations.index');
