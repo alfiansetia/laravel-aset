@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aset;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['jumlah'] = Aset::query()->sum('jumlah');
+        $data['nilai'] = Aset::query()->where('jumlah', '>', 0)->sum('nilai');
+        $data['terpakai'] = Aset::query()->where('status', 'terpakai')->sum('jumlah');
+        $data['tidak_terpakai'] = Aset::query()->where('status', 'tidak terpakai')->sum('jumlah');
+        $data['baik'] = Aset::query()->where('kondisi', 'baik')->sum('jumlah');
+        $data['rusak'] = Aset::query()->where('kondisi', 'rusak')->sum('jumlah');
+        return view('home', compact('data'));
     }
 }

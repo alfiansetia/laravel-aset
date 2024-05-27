@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\Usercontroller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Auth::routes([
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('tracking', [TrackingController::class, 'index'])->name('tracking.index');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('users', [Usercontroller::class, 'index'])->name('users.index');

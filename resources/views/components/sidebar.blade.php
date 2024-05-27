@@ -15,6 +15,10 @@
                 <a class="nav-link" href="{{ route('laporan.index') }}"><i
                         class="fas fa-calendar-check"></i><span>Laporan</span></a>
             </li>
+            <li class="{{ $title == 'Tracking' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('tracking.index') }}"><i
+                        class="fas fas fa-thumbtack"></i><span>Tracking</span></a>
+            </li>
             @if ($user->is_admin())
                 <li class="{{ $title == 'Data Aset' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('asets.index') }}"><i

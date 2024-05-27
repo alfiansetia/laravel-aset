@@ -36,6 +36,7 @@ class AsetController extends Controller
                 'tgl_terima'    => 'required|date_format:Y-m-d|before_or_equal:today',
                 'batas'         => 'required|integer|gte:0',
                 'status'        => 'required|in:terpakai,tidak terpakai',
+                'jumlah'        => 'required|integer|gt:0',
             ]
         );
         $count = Aset::latest('id')->first();
@@ -61,6 +62,7 @@ class AsetController extends Controller
             'tgl_terima'    => $request->tgl_terima,
             'batas'         => $request->batas,
             'status'        => $request->status,
+            'jumlah'        => $request->jumlah,
         ]);
         return $this->response('Sukses Tambah Data!', $aset, 200);
     }
@@ -92,6 +94,7 @@ class AsetController extends Controller
                 'tgl_terima'    => 'required|date_format:Y-m-d|before_or_equal:today',
                 'batas'         => 'required|integer|gte:0',
                 'status'        => 'required|in:terpakai,tidak terpakai',
+                'jumlah'        => 'required|integer|gt:0',
             ]
         );
         $img = $aset->getRawOriginal('image');
@@ -117,6 +120,7 @@ class AsetController extends Controller
             'tgl_terima'    => $request->tgl_terima,
             'batas'         => $request->batas,
             'status'        => $request->status,
+            'jumlah'        => $request->jumlah,
         ]);
         return $this->response('Sukses Ubah Data!', $aset, 200);
     }

@@ -88,6 +88,11 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
+                                <label class="control-label" for="jumlah">Jumlah :</label>
+                                <input type="number" name="jumlah" class="form-control" id="jumlah"
+                                    placeholder="Please Enter Jumlah" min="1" value="0" required>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label class="control-label" for="status">Status :</label>
                                 <select name="status" id="status" class="form-control select2" style="width: 100%;">
                                     <option value="">--Pilih Status--</option>
@@ -95,6 +100,8 @@
                                     <option value="tidak terpakai">Tidak Terpakai</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="image">Image :</label>
                                 <div class="custom-file">

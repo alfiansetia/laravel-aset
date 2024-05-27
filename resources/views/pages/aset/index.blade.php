@@ -19,6 +19,7 @@
                                 <th>Nama</th>
                                 <th>Jenis</th>
                                 <th>Kategori</th>
+                                <th>Jumlah</th>
                                 <th>Nilai</th>
                                 <th>Lokasi</th>
                                 <th>Kondisi</th>
@@ -113,6 +114,8 @@
                         return data
                     }
                 }
+            }, {
+                data: 'jumlah',
             }, {
                 data: 'nilai',
                 render: function(data, type, row, meta) {
@@ -211,6 +214,7 @@
                 $('#tgl_terima').val(result.data.tgl_terima).change()
                 $('#batas').val(result.data.batas)
                 $('#status').val(result.data.status).change()
+                $('#jumlah').val(result.data.jumlah)
                 $('#form').attr('action', url_index + '/' + id)
                 $('#modal_form_title').html('Edit Data')
                 $('#modal_form_submit').val('PUT')
@@ -249,6 +253,7 @@
             $('#image_preview').hide()
             $('#batas').val(0)
             $('#status').val('').change()
+            $('#jumlah').val(1)
         }
 
         function readURL(input) {
