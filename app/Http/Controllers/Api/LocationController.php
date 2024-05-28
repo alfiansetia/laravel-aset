@@ -12,9 +12,10 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Location::all();
+        $filters = $request->only(['name']);
+        $data = Location::filter($filters)->get();
         return $this->response('', LocationResource::collection($data), 200);
     }
 

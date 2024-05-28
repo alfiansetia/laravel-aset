@@ -26,6 +26,16 @@ class Aset extends Model
         ];
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+        if (isset($filters['code'])) {
+            $query->where('code', 'like', '%' . $filters['code'] . '%');
+        }
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

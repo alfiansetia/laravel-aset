@@ -13,9 +13,10 @@ class AsetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Aset::with(['jenis', 'location', 'category'])->get();
+        $filters = $request->only(['name', 'code']);
+        $data = Aset::filter($filters)->with(['jenis', 'location', 'category'])->get();
         return $this->response('', AsetResource::collection($data), 200);
     }
 

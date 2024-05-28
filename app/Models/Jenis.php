@@ -19,4 +19,11 @@ class Jenis extends Model
             'id'            => 'integer',
         ];
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+    }
 }

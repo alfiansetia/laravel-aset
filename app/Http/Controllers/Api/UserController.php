@@ -14,9 +14,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::all();
+        $filters = $request->only(['name', 'email']);
+        $data = User::filter($filters)->get();
         return $this->response('', UserResource::collection($data), 200);
     }
 

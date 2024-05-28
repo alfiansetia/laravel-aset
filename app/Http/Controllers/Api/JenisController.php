@@ -12,9 +12,10 @@ class JenisController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Jenis::all();
+        $filters = $request->only(['name']);
+        $data = Jenis::filter($filters)->get();
         return $this->response('', JenisResource::collection($data), 200);
     }
 
