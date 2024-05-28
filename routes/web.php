@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,10 @@ Auth::routes([
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'password'])->name('password.update');
+
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('tracking', [TrackingController::class, 'index'])->name('tracking.index');
 
