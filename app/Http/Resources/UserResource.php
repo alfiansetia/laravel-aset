@@ -22,6 +22,8 @@ class UserResource extends JsonResource
             'role'              => $this->role,
             'email_verified_at' => $this->email_verified_at,
             'is_admin'          => $this->is_admin(),
+            'last_login'        => $this->last_login,
+            'last_login_parse'  => $this->last_login_parse(),
         ];
     }
 }

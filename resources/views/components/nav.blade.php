@@ -13,7 +13,7 @@
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ $user->name }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-title">Logged in 5 min ago</div>
+                <div class="dropdown-title">Logged In {{ $user->last_login_parse() }}</div>
                 <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
