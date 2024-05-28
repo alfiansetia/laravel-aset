@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JenisResource;
 use App\Models\Jenis;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class JenisController extends Controller
     public function index()
     {
         $data = Jenis::all();
-        return $this->response('', $data, 200);
+        return $this->response('', JenisResource::collection($data), 200);
     }
 
 
@@ -32,7 +33,7 @@ class JenisController extends Controller
         $jenis = Jenis::create([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Tambah Data!', $jenis, 200);
+        return $this->response('Sukses Tambah Data!', new JenisResource($jenis), 200);
     }
 
     /**
@@ -57,7 +58,7 @@ class JenisController extends Controller
         $jenis->update([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Ubah Data!', $jenis, 200);
+        return $this->response('Sukses Ubah Data!', new JenisResource($jenis), 200);
     }
 
     /**
@@ -66,6 +67,6 @@ class JenisController extends Controller
     public function destroy(Jenis $jenis)
     {
         $jenis->delete();
-        return $this->response('Sukses Hapus Data!', $jenis, 200);
+        return $this->response('Sukses Hapus Data!', new JenisResource($jenis), 200);
     }
 }

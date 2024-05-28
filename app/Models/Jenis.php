@@ -12,4 +12,11 @@ class Jenis extends Model
     protected $table = 'jenis';
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+        ];
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $data = Category::all();
-        return $this->response('', $data, 200);
+        return $this->response('', CategoryResource::collection($data), 200);
     }
 
 
@@ -40,7 +41,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $this->response('', $category, 200);
+        return $this->response('', new CategoryResource($category), 200);
     }
 
     /**
@@ -57,7 +58,7 @@ class CategoryController extends Controller
         $category->update([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Ubah Data!', $category, 200);
+        return $this->response('Sukses Ubah Data!', new CategoryResource($category), 200);
     }
 
     /**
@@ -66,6 +67,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return $this->response('Sukses Hapus Data!', $category, 200);
+        return $this->response('Sukses Hapus Data!', new CategoryResource($category), 200);
     }
 }

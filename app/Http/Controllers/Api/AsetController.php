@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AsetResource;
 use App\Models\Aset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -15,7 +16,7 @@ class AsetController extends Controller
     public function index()
     {
         $data = Aset::with(['jenis', 'location', 'category'])->get();
-        return $this->response('', $data, 200);
+        return $this->response('', AsetResource::collection($data), 200);
     }
 
     /**
@@ -64,7 +65,7 @@ class AsetController extends Controller
             'status'        => $request->status,
             'jumlah'        => $request->jumlah,
         ]);
-        return $this->response('Sukses Tambah Data!', $aset, 200);
+        return $this->response('Sukses Tambah Data!', new AsetResource($aset), 200);
     }
 
     /**
@@ -72,7 +73,7 @@ class AsetController extends Controller
      */
     public function show(Aset $aset)
     {
-        return $this->response('', $aset->load(['jenis', 'location', 'category']), 200);
+        return $this->response('', new AsetResource($aset->load(['jenis', 'location', 'category'])), 200);
     }
 
 
@@ -122,7 +123,7 @@ class AsetController extends Controller
             'status'        => $request->status,
             'jumlah'        => $request->jumlah,
         ]);
-        return $this->response('Sukses Ubah Data!', $aset, 200);
+        return $this->response('Sukses Ubah Data!', new AsetResource($aset), 200);
     }
 
     /**
@@ -131,6 +132,6 @@ class AsetController extends Controller
     public function destroy(Aset $aset)
     {
         $aset->delete();
-        return $this->response('Sukses Hapus Data!', $aset, 200);
+        return $this->response('Sukses Hapus Data!', new AsetResource($aset), 200);
     }
 }

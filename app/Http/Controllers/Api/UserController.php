@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $data = User::all();
-        return $this->response('', $data, 200);
+        return $this->response('', UserResource::collection($data), 200);
     }
 
     /**
@@ -39,7 +40,7 @@ class UserController extends Controller
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
         ]);
-        return $this->response('Sukses Tambah Data!', $user, 200);
+        return $this->response('Sukses Tambah Data!', new UserResource($user), 200);
     }
 
     /**
@@ -47,7 +48,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->response('', $user, 200);
+        return $this->response('', new UserResource($user), 200);
     }
 
 
@@ -74,7 +75,7 @@ class UserController extends Controller
             $param['password'] = Hash::make($request->password);
         }
         $user->update($param);
-        return $this->response('Sukses Ubah Data!', $user, 200);
+        return $this->response('Sukses Ubah Data!', new UserResource($user), 200);
     }
 
     /**
@@ -83,6 +84,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->response('Sukses Hapus Data!', $user, 200);
+        return $this->response('Sukses Hapus Data!', new UserResource($user), 200);
     }
 }

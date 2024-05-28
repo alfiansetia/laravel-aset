@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AsetResource;
 use App\Models\Aset;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,6 @@ class TrackingController extends Controller
         if (!$aset) {
             return $this->response('Data Not Found!', null, 404);
         }
-        return $this->response('', $aset);
+        return $this->response('', new AsetResource($aset));
     }
 }

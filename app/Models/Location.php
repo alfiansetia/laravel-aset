@@ -10,4 +10,11 @@ class Location extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+        ];
+    }
 }

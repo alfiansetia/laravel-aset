@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LocationResource;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class LocationController extends Controller
     public function index()
     {
         $data = Location::all();
-        return $this->response('', $data, 200);
+        return $this->response('', LocationResource::collection($data), 200);
     }
 
 
@@ -32,7 +33,7 @@ class LocationController extends Controller
         $location = Location::create([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Tambah Data!', $location, 200);
+        return $this->response('Sukses Tambah Data!', new LocationResource($location), 200);
     }
 
     /**
@@ -40,7 +41,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        return $this->response('', $location, 200);
+        return $this->response('', new LocationResource($location), 200);
     }
 
     /**
@@ -57,7 +58,7 @@ class LocationController extends Controller
         $location->update([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Ubah Data!', $location, 200);
+        return $this->response('Sukses Ubah Data!', new LocationResource($location), 200);
     }
 
     /**
@@ -66,6 +67,6 @@ class LocationController extends Controller
     public function destroy(Location $location)
     {
         $location->delete();
-        return $this->response('Sukses Hapus Data!', $location, 200);
+        return $this->response('Sukses Hapus Data!', new LocationResource($location), 200);
     }
 }

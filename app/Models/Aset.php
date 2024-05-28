@@ -12,6 +12,20 @@ class Aset extends Model
 
     protected $guarded = [];
 
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+            'batas'         => 'integer',
+            'jumlah'        => 'integer',
+            'nilai'         => 'integer',
+            'category_id'   => 'integer',
+            'jenis_id'      => 'integer',
+            'location_id'   => 'integer',
+            // 'tgl_terima'    => 'date',
+        ];
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

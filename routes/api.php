@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AsetController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\JenisController;
 use App\Http\Controllers\Api\LocationController;
@@ -13,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
+Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('profile', [AuthController::class, 'profile']);
 
     Route::get('tracking/{aset:code}', [TrackingController::class, 'show'])->name('api.tracking.index');
 
