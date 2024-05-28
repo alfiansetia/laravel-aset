@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name'      => $request->name,
         ]);
-        return $this->response('Sukses Tambah Data!', $category, 200);
+        return $this->response('Sukses Tambah Data!', new CategoryResource($category), 200);
     }
 
     /**

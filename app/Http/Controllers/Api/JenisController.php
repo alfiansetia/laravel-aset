@@ -41,7 +41,7 @@ class JenisController extends Controller
      */
     public function show(Jenis $jenis)
     {
-        return $this->response('', $jenis, 200);
+        return $this->response('', new JenisResource($jenis), 200);
     }
 
     /**
