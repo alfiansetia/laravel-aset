@@ -139,22 +139,7 @@
             }, {
                 data: 'tgl_terima',
             }, {
-                data: 'batas',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        if (data < 1) {
-                            return ''
-                        }
-                        let initialDate = new Date(row.tgl_terima);
-                        let yearsToAdd = row.batas;
-                        let newDate = new Date(initialDate);
-                        newDate.setFullYear(newDate.getFullYear() + yearsToAdd);
-                        let formattedDate = newDate.toISOString().split('T')[0];
-                        return formattedDate
-                    } else {
-                        return data
-                    }
-                }
+                data: 'batas_parse',
             }, {
                 data: 'status',
             }, {

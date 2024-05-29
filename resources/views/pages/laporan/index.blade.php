@@ -18,6 +18,7 @@
                                 <th>Nama</th>
                                 <th>Jenis</th>
                                 <th>Kategori</th>
+                                <th>Jumlah</th>
                                 <th>Nilai</th>
                                 <th>Lokasi</th>
                                 <th>Kondisi</th>
@@ -29,23 +30,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->code }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->jenis->name ?? '' }}</td>
-                                    <td>{{ $item->category->name ?? '' }}</td>
-                                    <td>Rp. {{ hrg($item->nilai) }}</td>
-                                    <td>{{ $item->location->name }}</td>
-                                    <td>{{ $item->kondisi }}</td>
-                                    <td>{{ $item->tgl_terima }}</td>
-                                    <td>{{ $item->masa_parse() }}</td>
-                                    <td>{{ $item->batas_parse() }}</td>
-                                    <td>{{ $item->sisa_parse() }}</td>
-                                    <td>{{ $item->status }}</td>
-                                </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -66,10 +50,11 @@
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
 
     <script>
-        var url_index = "{{ route('api.asets.index') }}"
+        var url_index = "{{ route('api.laporan.index') }}"
         var id = 0
 
         var table = $("#table").DataTable({
+            ajax: url_index,
             processing: true,
             dom: "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
                 "<'table-responsive'tr>" +
@@ -90,6 +75,66 @@
             pageLength: 10,
             lengthChange: true,
             columnDefs: [],
+            columns: [{
+                data: 'id',
+                render: function(data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            }, {
+                data: 'code',
+            }, {
+                data: 'name',
+            }, {
+                data: 'jenis_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.jenis.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'category_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.category.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'jumlah',
+            }, {
+                data: 'nilai',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return "Rp." + hrg(data)
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'location_id',
+                render: function(data, type, row, meta) {
+                    if (type == 'display') {
+                        return data != null ? row.location.name : ''
+                    } else {
+                        return data
+                    }
+                }
+            }, {
+                data: 'kondisi',
+            }, {
+                data: 'tgl_terima',
+            }, {
+                data: 'masa_parse',
+            }, {
+                data: 'batas_parse',
+            }, {
+                data: 'sisa_parse',
+            }, {
+                data: 'status',
+            }],
             buttons: [{
                 extend: "colvis",
                 attr: {

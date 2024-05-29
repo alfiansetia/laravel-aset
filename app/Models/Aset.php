@@ -107,4 +107,9 @@ class Aset extends Model
         }
         return $text;
     }
+
+    public function nilai_parse()
+    {
+        return 'Rp. ' . hrg($this->nilai);
+    }
 }

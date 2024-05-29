@@ -21,6 +21,7 @@ class AsetResource extends JsonResource
             'name'          => $this->name,
             'jumlah'        => $this->jumlah,
             'nilai'         => $this->nilai,
+            'nilai_parse'   => $this->nilai_parse(),
             'kondisi'       => $this->kondisi,
             'status'        => $this->status,
             'tgl_terima'    => $this->tgl_terima,

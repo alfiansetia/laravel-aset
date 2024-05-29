@@ -12,7 +12,8 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" tabindex="1" placeholder="Please Input Email" required autofocus>
+                        name="email" tabindex="1" placeholder="Please Input Email" value="{{ old('email') }}" required
+                        autofocus>
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

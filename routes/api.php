@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AsetController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\JenisController;
+use App\Http\Controllers\Api\LaporanController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TrackingController;
@@ -24,6 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/profile', [ProfileController::class, 'password'])->name('api.password.update');
 
     Route::get('tracking/{aset:code}', [TrackingController::class, 'show'])->name('api.tracking.index');
+    Route::get('laporan', [LaporanController::class, 'index'])->name('api.laporan.index');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::apiResource('users', UserController::class)->names('api.users');
