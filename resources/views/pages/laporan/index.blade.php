@@ -46,6 +46,13 @@
     <script src="{{ asset('lib/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('lib/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+
+    <script src="{{ asset('lib/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('lib/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('lib/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('lib/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('lib/datatables-buttons/js/buttons.print.min.js') }}"></script>
+
     <script src="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('lib/select2/dist/js/select2.full.min.js') }}"></script>
 
@@ -105,14 +112,7 @@
             }, {
                 data: 'jumlah',
             }, {
-                data: 'nilai',
-                render: function(data, type, row, meta) {
-                    if (type == 'display') {
-                        return "Rp." + hrg(data)
-                    } else {
-                        return data
-                    }
-                }
+                data: 'nilai_parse',
             }, {
                 data: 'location_id',
                 render: function(data, type, row, meta) {
@@ -149,7 +149,28 @@
                     'title': 'Page Length'
                 },
                 className: 'btn btn-sm btn-info'
-            }],
+            }, {
+                text: 'Export',
+                className: 'btn btn-sm btn-warning bs-tooltip',
+                attr: {
+                    'data-toggle': 'tooltip',
+                    'title': 'Export'
+                },
+                extend: 'collection',
+                autoClose: true,
+                buttons: ["csv", "excel", "copy", {
+                    extend: 'pdf',
+                    orientation: 'landscape',
+                    title: `Laporan Aset`,
+                    pageSize: 'A4',
+                }, {
+                    extend: "print",
+                    text: 'Print',
+                    pageSize: 'A4',
+                    orientation: 'landscape',
+                    title: 'Laporan Aset',
+                }]
+            }, ],
             initComplete: function() {
                 $('#table').DataTable().buttons().container().appendTo(
                     '#tableData_wrapper .col-md-6:eq(0)');
