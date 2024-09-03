@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $data['jumlah'] = Aset::query()->sum('jumlah');
-        $data['nilai'] = Aset::query()->where('jumlah', '>', 0)->sum('nilai');
+        $data['nilai'] = Aset::query()->where('jumlah', '>', 0)->sum(DB::raw('nilai * jumlah'));
         $data['terpakai'] = Aset::query()->where('status', 'terpakai')->sum('jumlah');
         $data['tidak_terpakai'] = Aset::query()->where('status', 'tidak terpakai')->sum('jumlah');
         $data['baik'] = Aset::query()->where('kondisi', 'baik')->sum('jumlah');

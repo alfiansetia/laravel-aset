@@ -13,6 +13,10 @@ class JenisSeeder extends Seeder
      */
     public function run(): void
     {
-        Jenis::factory(10)->create();
+        // Jenis::factory(10)->create();
+        $jenis = ['Aset Bergerak', 'Aset Tetap'];
+        foreach ($jenis as $item) {
+            Jenis::create(['name' => $item]);
+        }
     }
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('asets', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('name');
+            $table->string('code', 50);
+            $table->string('name', 50);
             $table->integer('jumlah')->default(0);
             $table->integer('nilai')->default(0);
             $table->unsignedBigInteger('category_id')->nullable();
