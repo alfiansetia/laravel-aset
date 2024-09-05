@@ -1,7 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('/assets/img/asa.png') }}" alt="logo" width="100" class="shadow-light">
+            </a>
+            {{-- <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> --}}
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('home') }}">{{ env('APP_NAME_INITIAL') }}</a>
@@ -15,11 +18,11 @@
                 <a class="nav-link" href="{{ route('laporan.index') }}"><i
                         class="fas fa-calendar-check"></i><span>Laporan</span></a>
             </li>
-            <li class="{{ $title == 'Tracking' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('tracking.index') }}"><i
-                        class="fas fas fa-thumbtack"></i><span>Tracking</span></a>
-            </li>
             @if ($user->is_admin())
+                <li class="{{ $title == 'Tracking' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('tracking.index') }}"><i
+                            class="fas fas fa-thumbtack"></i><span>Tracking</span></a>
+                </li>
                 <li class="{{ $title == 'Data Aset' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('asets.index') }}"><i
                             class="fas fa-cubes"></i><span>Aset</span></a>
