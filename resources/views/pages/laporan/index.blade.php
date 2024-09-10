@@ -158,18 +158,64 @@
                 },
                 extend: 'collection',
                 autoClose: true,
-                buttons: ["csv", "excel", "copy", {
-                    extend: 'pdf',
-                    orientation: 'landscape',
-                    title: `Laporan Aset`,
-                    pageSize: 'A4',
-                }, {
-                    extend: "print",
-                    text: 'Print',
-                    pageSize: 'A4',
-                    orientation: 'landscape',
-                    title: 'Laporan Aset',
-                }]
+                buttons: [{
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        title: function() {
+                            const monthNames = [
+                                "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+                                "Agustus", "September", "Oktober", "November", "Desember"
+                            ];
+                            const currentDate = new Date();
+                            const currentMonth = monthNames[currentDate.getMonth()];
+                            const currentYear = currentDate.getFullYear();
+                            return (
+                                    `PT MITRA ASA PRATAMA\nLAPORAN ASET BULAN ${currentMonth} ${currentYear}`
+                                    )
+                                .toUpperCase();
+                        },
+                        pageSize: 'A4',
+                        customize: function(doc) {
+                            doc.styles.title = {
+                                alignment: 'center',
+                                fontSize: 14,
+                                bold: true
+                            };
+                            // doc.styles.tableHeader.color = '#000000';
+                            // doc.styles.tableHeader.fillColor = '#ffffff';
+                        }
+                    }
+
+                    // "csv", "excel", "copy", {
+                    //     extend: 'pdf',
+                    //     orientation: 'landscape',
+                    //     title: function() {
+                    //         const monthNames = [
+                    //             "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+                    //             "Agustus", "September", "Oktober", "November", "Desember"
+                    //         ];
+                    //         const currentDate = new Date();
+                    //         const currentMonth = monthNames[currentDate.getMonth()];
+                    //         return `PT MITRA ASA PRATAMA\nLAPORAN ASET BULAN ${currentMonth.toUpperCase()}`;
+                    //     },
+                    //     pageSize: 'A4',
+                    //     customize: function(doc) {
+                    //         doc.styles.title = {
+                    //             alignment: 'center',
+                    //             fontSize: 14,
+                    //             bold: true
+                    //         };
+                    //         // doc.styles.tableHeader.color = '#000000';
+                    //         // doc.styles.tableHeader.fillColor = '#ffffff';
+                    //     }
+                    // }, {
+                    //     extend: "print",
+                    //     text: 'Print',
+                    //     pageSize: 'A4',
+                    //     orientation: 'landscape',
+                    //     title: 'Laporan Aset',
+                    // }
+                ]
             }, ],
             initComplete: function() {
                 $('#table').DataTable().buttons().container().appendTo(
